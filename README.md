@@ -13,7 +13,7 @@ Detailed usage can be found on the (CAPyLE webpages)[http://pjworsley.github.io/
 
 See below for a quickstart guide:
 
-1. `git clone https://github.com/pjworsley/capyle [target-directory]`
+1. `git clone https://github.com/pjworsley/capyle.git [target-directory]`
 2. `cd [target-directory]`
 3. Execute main.py either by:
     * `run.bat` / `run.sh`
