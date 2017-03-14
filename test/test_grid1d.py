@@ -75,7 +75,8 @@ class TestWrap(unittest.TestCase):
         return np.count_nonzero(we) == 0 and np.count_nonzero(ww) == 0
 
     def case(self, numgens, wrap):
-        g = Grid1D(self.config, self.transfunc, wrapping=wrap)
+        self.config.wrap = wrap
+        g = Grid1D(self.config, self.transfunc)
         randgrid = np.random.randint(0,2, g.grid.shape)
         g.grid[:,:] = randgrid[:,:]
         g.refresh_wrap()
