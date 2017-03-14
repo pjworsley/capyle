@@ -1,5 +1,5 @@
 # CAPyLE
-CAPyLE is a teaching tool designed and built as part of a final year computer science project. It aims to aid the teaching of cellular automata and how they can be used to model natural systems.
+CAPyLE is a cross-platform teaching tool designed and built as part of a final year computer science project. It aims to aid the teaching of cellular automata and how they can be used to model natural systems.
 
 It is written completely in python with minimal dependencies.
 
