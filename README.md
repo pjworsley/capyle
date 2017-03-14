@@ -6,10 +6,10 @@ It is written completely in python with minimal dependencies.
 ![CAPyLE Screenshot on macOS](http://pjworsley.github.io/capyle/sample.png)
 
 ## Installation
-The installation guide can be found on the (CAPyLE webpages)[http://pjworsley.github.io/capyle/installationguide.html]
+The installation guide can be found on the [CAPyLE webpages](http://pjworsley.github.io/capyle/installationguide.html)
 
 ## Usage
-Detailed usage can be found on the (CAPyLE webpages)[http://pjworsley.github.io/capyle/].
+Detailed usage can be found on the [CAPyLE webpages](http://pjworsley.github.io/capyle/).
 
 See below for a quickstart guide:
 
