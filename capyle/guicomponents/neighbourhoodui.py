@@ -108,8 +108,9 @@ class _NeighbourhoodSelector(tk.Canvas):
             y = 0
             x += 1
             # draw grid lines
-            self.create_line(0, i, self.WIDTH-offset, i)
-            self.create_line(i, 0, i, self.HEIGHT-offset)
+            if not i == 0:
+                self.create_line(offset, i, self.WIDTH-offset, i)
+                self.create_line(i, offset, i, self.HEIGHT-offset)
         # set center cell
         self.center_cell = 1, 1
 
@@ -121,7 +122,8 @@ class _NeighbourhoodSelector(tk.Canvas):
                 i+offset, offset, i+self.cell_spacing-offset,
                 self.cell_spacing-offset, fill="red", width=0)
             x += 1
-            self.create_line(i, 0, i, self.HEIGHT-offset)
+            if not i == 0:
+                self.create_line(i, offset, i, self.HEIGHT-offset)
         self.center_cell = 0, 1
 
     def callback(self, event):
