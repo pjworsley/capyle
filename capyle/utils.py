@@ -53,7 +53,7 @@ def run_ca(ca_config):
         numpy.ndarray: Array containing the grid state for each time step
     """
     ca_config.save()
-    args = ['python', ca_config.filepath, ca_config.path]
+    args = [sys.executable, ca_config.filepath, ca_config.path]
     ca = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     out_bytes, errors_bytes = ca.communicate()
