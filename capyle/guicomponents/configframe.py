@@ -1,9 +1,9 @@
 import tkinter as tk
 import numpy as np
 from capyle.utils import gens_to_dims, alerterror, alertcontinue
-from capyle.guicomponents import _GenerationsUI, _GridDimensionsUI, _Separator
-from capyle.guicomponents import _NeighbourhoodUI, _RuleNumberUI, _StateColorsUI
-from capyle.guicomponents import _InitialGridUI
+from capyle.guicomponents import (_GenerationsUI, _GridDimensionsUI,
+                                  _Separator, _NeighbourhoodUI, _RuleNumberUI,
+                                  _StateColorsUI, _InitialGridUI)
 
 
 class _ConfigFrame(tk.Frame):

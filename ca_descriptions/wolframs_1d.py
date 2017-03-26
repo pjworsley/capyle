@@ -2,7 +2,8 @@
 # Dimensions: 1
 
 # --- Set up executable path, do not edit ---
-import sys, inspect
+import sys
+import inspect
 this_file_loc = (inspect.stack()[0][1])
 main_dir_loc = this_file_loc[:this_file_loc.index('ca_descriptions')]
 sys.path.append(main_dir_loc)
@@ -15,14 +16,15 @@ import numpy as np
 from capyle.ca import Grid1D
 import capyle.utils as utils
 
+
 def setup(args):
     config_path = args[0]
     config = utils.load(config_path)
-    # --- THE CA MUST BE RELOADED IN THE GUI IF ANY OF THE BELOW ARE CHANGED ---
+    # ---THE CA MUST BE RELOADED IN THE GUI IF ANY OF THE BELOW ARE CHANGED---
     config.title = "Wolframs 1D CA"
     config.dimensions = 1
-    config.states = (0,1)
-    # --------------------------------------------------------------------------
+    config.states = (0, 1)
+    # ------------------------------------------------------------------------
 
     # ---- Override the defaults below (these may be changed at anytime) ----
     config.wrap = False
@@ -37,12 +39,15 @@ def setup(args):
         sys.exit()
     return config
 
+
 def transition_function(grid, neighbourstates, neighbourcounts, rulebool):
         left, center, right = neighbourstates
         left = left == 1
         center = center == 1
         right = right == 1
-        not_left, not_center, not_right = np.invert(left), np.invert(center), np.invert(right)
+        not_left, not_center, not_right = (np.invert(left),
+                                           np.invert(center),
+                                           np.invert(right))
 
         rule_application = np.array([
             rulebool[0] & left     & center     & right,
@@ -59,6 +64,7 @@ def transition_function(grid, neighbourstates, neighbourcounts, rulebool):
         for i in range(rule_application.shape[0] - 2):
             newrow += rule_application[i+1]
         return newrow
+
 
 def main():
     config = setup(sys.argv[1:])

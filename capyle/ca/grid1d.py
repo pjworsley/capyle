@@ -52,7 +52,6 @@ class Grid1D(Grid):
         else:
             self.transition_func = transition_func
 
-
     def refresh_wrap(self):
         """ Update the wrapping border of the grid to reflect any changes """
         if not self.ca_config.wrap:

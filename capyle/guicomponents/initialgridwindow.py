@@ -3,14 +3,15 @@ import tkinter.font as tkFont
 import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from capyle.ca import randomise1d, randomise2d
-from capyle.utils import rgb_to_hex, clip_numeric, scale_array
-from capyle.utils import set_icon, set_entry, clear_entry
+from capyle.utils import (rgb_to_hex, clip_numeric, scale_array,
+                          set_icon, set_entry, clear_entry)
 from capyle.guicomponents import _Separator, _CAGraph
 
 
 class _EditInitialGridWindow(tk.Toplevel):
 
     def __init__(self, ca_config, proportions=False, custom=False):
+        """Create top level window containing the appropriate controls"""
         # superclass
         tk.Toplevel.__init__(self)
 
@@ -54,8 +55,8 @@ class _EditInitialGridWindow(tk.Toplevel):
         rframe.pack(side=tk.RIGHT)
 
         # Init the config frame for sidebar
-        self.configframe = _ConfigFrame(self, self.ca_config,
-                                       proportions=proportions, custom=custom)
+        self.configframe = _ConfigFrame(
+            self, self.ca_config, proportions=proportions, custom=custom)
         self.configframe.pack(side=tk.LEFT, fill=tk.BOTH, expand=tk.YES)
 
     def get_initial_grid(self):
@@ -111,7 +112,7 @@ class _EditInitialGridWindow(tk.Toplevel):
         else:
             row, col = 0, 0
         self.coords.config(text="[{}, {}]".format(row, col))
-        
+
     def get_graph_indices(self, event):
         """Translate mouse position on graph to indicies in grid"""
         col = clip_numeric(int(event.xdata + 0.5),
@@ -123,7 +124,7 @@ class _EditInitialGridWindow(tk.Toplevel):
     def onaxesclick(self, event):
         """Set the state of the cell clicked to the selected state"""
         if event.inaxes is not None:
-            row, col = self.get_graph_indices(event) 
+            row, col = self.get_graph_indices(event)
             state = self.ca_config.states[
                 self.configframe.selected_state_index.get()]
 

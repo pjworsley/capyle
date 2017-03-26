@@ -10,21 +10,21 @@ class Neighbourhood(object):
                 "Unsuported number of dimensions, only 1D or 2D CA supported")
         if dims == 2:
             # 3,3 neighbourhood
-            self.neighbourhood = self.__prepare2D(nhood)
+            self.neighbourhood = self._prepare2D(nhood)
         else:
             # 3, Neighbourhood
-            self.neighbourhood = self.__prepare1D(nhood)
+            self.neighbourhood = self._prepare1D(nhood)
 
     def __str__(self):
         """Return the string version of the neighbourhood array
         when print called on whole object"""
         return np.array_str(self.neighbourhood)
 
-    def __prepare2D(self, nhood):
+    def _prepare2D(self, nhood):
         """Check the provided neighbourhood is valid and if not
         attempt to make it valid in the unambiguous cases"""
         # check type and if needed convert python list to numpy array
-        nhood = self.__type_neighbourhood(nhood)
+        nhood = self._type_neighbourhood(nhood)
         # check that there are 1 or 2 dimensions
         # we can increase dimensionality, but not reduce
         dimscheck = nhood.ndim == 1 or nhood.ndim == 2
@@ -43,7 +43,7 @@ class Neighbourhood(object):
             nhood = np.array([[0, 0, 0], [0, 1, 0], [0, 0, 0]])
 
         # check if the neighbourhood has a center
-        if not (self.__has_center(nhood)):
+        if not (self._has_center(nhood)):
             raise ValueError(
                 "Neighbourhood must have a center to represent the cell")
 
@@ -52,14 +52,14 @@ class Neighbourhood(object):
         # nhood.shape = 5,5 -> nhood.shape = 3,3    #decrease
         if nhood.shape > (3, 3):
             print("[WARNING] Neighbourhood too large, scaling to 3x3...")
-            nhood = self.__reduce_to_3x3(nhood)
+            nhood = self._reduce_to_3x3(nhood)
         elif nhood.shape < (3, 3):
-            nhood = self.__increase_to_3x3(nhood)
+            nhood = self._increase_to_3x3(nhood)
         return nhood
 
-    def __prepare1D(self, nhood):
+    def _prepare1D(self, nhood):
         """Validate and prepare a neighbourhood for a 1D CA"""
-        nhood = self.__type_neighbourhood(nhood)
+        nhood = self._type_neighbourhood(nhood)
         dimscheck = nhood.ndim == 1 or nhood.ndim == 2
         if not dimscheck:
             raise ValueError(
@@ -75,12 +75,12 @@ class Neighbourhood(object):
         if not (len(nhood.shape) == 1):
             raise ValueError("Neighbourhood must be 1D eg. [1, 0, 1]")
         # handle any even proportioned arrays
-        if not (self.__has_center(nhood)):
+        if not (self._has_center(nhood)):
             raise ValueError(
                 "Neighbourhood must have a center to represent the cell")
         return nhood
 
-    def __has_center(self, nhood):
+    def _has_center(self, nhood):
         """Returns true if the shape of the neighbourhood is odd
         and hence has a center cell"""
         shape = nhood.shape
@@ -95,7 +95,7 @@ class Neighbourhood(object):
             return True
         return False
 
-    def __reduce_to_3x3(self, nhood, fullmatrix=True):
+    def _reduce_to_3x3(self, nhood, fullmatrix=True):
         """
         With the fullmatrix == True, the array will be reduced to 3x3,
         otherwise the appropriate dimensions will be reduced
@@ -110,13 +110,13 @@ class Neighbourhood(object):
             nhood = nhood[1:-1]
         if cols > 3:
             nhood = nhood[:, 1:-1]
-        return self.__reduce_to_3x3(nhood, fullmatrix)
+        return self._reduce_to_3x3(nhood, fullmatrix)
 
-    def __increase_to_3x3(self, nhood):
+    def _increase_to_3x3(self, nhood):
         # Only valid shapes at this point either have a 3 or 1
         # If one dimension greater than 3 then reduce to 3
         if any(s > 3 for s in nhood.shape):
-            nhood = self.__reduce_to_3x3(nhood, fullmatrix=False)
+            nhood = self._reduce_to_3x3(nhood, fullmatrix=False)
 
         new_col = np.zeros((3, 1))
         new_row = np.zeros((3))
@@ -137,7 +137,7 @@ class Neighbourhood(object):
         if nhood.shape == (1,) or nhood.shape == (1, 1):
             return np.zeros((3, 3))
 
-    def __type_neighbourhood(self, nhood):
+    def _type_neighbourhood(self, nhood):
         """Checks the type of the neighbourhood provided
         allows list or np.ndarray, rejects others"""
         nhoodtype = type(nhood)

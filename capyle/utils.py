@@ -19,7 +19,7 @@ def prerun_ca(ca_config):
 
     """
     ca_config.save()
-    args = ['python', ca_config.filepath, ca_config.path, '0']
+    args = [sys.executable, ca_config.filepath, ca_config.path, '0']
     ca = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     #  Collect both stdout and errors & decode to strings
     out_bytes, errors_bytes = ca.communicate()

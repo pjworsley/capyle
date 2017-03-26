@@ -3,11 +3,11 @@ import tkinter as tk
 import tkinter.font as tkFont
 import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from capyle.utils import set_icon, get_filename_dialog, get_logo
-from capyle.utils import prerun_ca, run_ca, extract_states
+from capyle.utils import (set_icon, get_filename_dialog, get_logo,
+                          prerun_ca, run_ca, extract_states)
 from capyle.ca import CAConfig
-from capyle.guicomponents import _ConfigFrame, _CAGraph, _ScreenshotUI
-from capyle.guicomponents import _CreateCA, _AboutWindow
+from capyle.guicomponents import (_ConfigFrame, _CAGraph, _ScreenshotUI,
+                                  _CreateCA, _AboutWindow)
 from capyle import _PlaybackControls
 
 
@@ -81,12 +81,10 @@ class Display(object):
         self.rframe = tk.Frame(self.root, height=500, width=300)
         self.rframe.pack(side=tk.RIGHT, expand=tk.YES, fill=tk.BOTH)
 
-
         # Split right frame into top and bottom parts
         self.rbotframe = tk.Frame(self.rframe, height=100, width=300)
         self.rbotframe.pack(side=tk.BOTTOM, expand=tk.YES, fill=tk.BOTH,
                             pady=5)
-
 
         self.rtopframe = tk.Frame(self.rframe, height=40, width=200)
         self.rtopframe.pack(side=tk.TOP, expand=tk.YES, fill=tk.BOTH,
@@ -210,7 +208,8 @@ class Display(object):
             timeline (np.ndarray): The grid state for each timestep
         """
         # Create graph from timeline
-        self.ca_graph = _CAGraph(timeline, self.ca_config.states, sequence=True)
+        self.ca_graph = _CAGraph(timeline, self.ca_config.states,
+                                 sequence=True)
         if self.ca_canvas is not None:
             self.ca_canvas.get_tk_widget().destroy()
         self.ca_canvas = FigureCanvasTkAgg(self.ca_graph.fig,

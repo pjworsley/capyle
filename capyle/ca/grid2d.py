@@ -30,7 +30,8 @@ class Grid2D(Grid):
                                        wrapsize:-wrapsize]
 
         # Generate the indices only once per grid
-        self.wrapindicies, self.gridindicies = self.gen_wrap_indicies(wrapsize)
+        self.wrapindicies, self.gridindicies = self._gen_wrap_indicies(
+            wrapsize)
 
         # if at t = 0 grid has been supplied, set the states
         if ca_config.initial_grid is not None:
@@ -48,7 +49,7 @@ class Grid2D(Grid):
         else:
             self.transition_func = transition_func
 
-    def gen_wrap_indicies(self, wrapsize):
+    def _gen_wrap_indicies(self, wrapsize):
         """Create the indecies used when refreshing the wrap"""
         wrap_width = wrapsize
         wrap_height = wrap_width
@@ -98,10 +99,10 @@ class Grid2D(Grid):
         """ Update the wrapping border of the grid to reflect any changes """
         # if wrap false set to default non wrap state (-100)
         wrap = self.ca_config.wrap
-        if type(wrap) is bool and wrap == False:
+        if type(wrap) is bool and wrap is False:
             wrap = -100
         # Normal wrapping behaviour
-        if type(wrap) is bool and wrap == True:
+        if type(wrap) is bool and wrap is True:
             # set the wrap to the oppostite cell bank of the grid
             for w, g in zip(self.wrapindicies, self.gridindicies):
                 gridsection = self.grid[g[0]:g[1], g[2]:g[3]]

@@ -16,7 +16,6 @@ class _PlaybackUI(tk.Frame):
         fps_slider.set(self.controls.MAX_FRAMERATE)
         fps_slider.pack(side=tk.TOP, fill=tk.BOTH, padx=1)
 
-
         # Buttons
         btn_step_backward = tk.Button(
             self, text="< Step", state=tk.DISABLED,

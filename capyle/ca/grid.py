@@ -24,12 +24,12 @@ class Grid(object):
         g = np.array(g)
 
         if g.shape[0] > 1:
-            #2d grid
+            # 2d grid
             if not self.grid.shape == g.shape:
                 g = scale_array(g, *self.grid.shape)
             self.grid[:, :] = g[:, :]
         else:
-            #1d grid
+            # 1d grid
             if not self.grid.shape[1] == g.shape[1]:
                 g = scale_array(g, g.shape[0], self.grid.shape[1])
             self.grid[0, :] = g[0]
@@ -64,10 +64,10 @@ class Grid(object):
         # Progress window
         # pass in the run function and timeline to the progress bar
         # progress bar executes these
-        gui = _ProgressWindow(num_generations, self.runca, timeline)
+        gui = _ProgressWindow(num_generations, self._runca, timeline)
         return timeline
 
-    def runca(self, num_generations, progressbar, timeline):
+    def _runca(self, num_generations, progressbar, timeline):
         """Running the CA for given generations,
         saving each timestep to an array 'timeline'
 

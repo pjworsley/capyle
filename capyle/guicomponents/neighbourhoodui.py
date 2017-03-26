@@ -28,10 +28,8 @@ class _NeighbourhoodUI(tk.Frame, _ConfigUIComponent):
 
         # lower frame to hold the interactive selector
         selframe = tk.Frame(self)
-        self.nhood_selector = _NeighbourhoodSelector(selframe,
-                                                    (self.optvar,
-                                                     self.options),
-                                                    dimensions)
+        self.nhood_selector = _NeighbourhoodSelector(
+            selframe, (self.optvar, self.options), dimensions)
         self.nhood_selector.pack()
         selframe.pack()
 
