@@ -19,9 +19,6 @@ class _CAGraph(object):
             if sequence:
                 self.timeline = data
                 data = self.timeline[0]
-            # black magic this forces it to work with 1D
-            if (data.shape[0] - 1 == ((data.shape[1] -1 )/ 2)):
-                data = np.zeros((5, 10))
             self.fig = plt.Figure(frameon=False)
             self.fig.set_size_inches(self.GRAPH_SIZE)
             ax = self.fig.add_axes([0, 0, 1, 1])
