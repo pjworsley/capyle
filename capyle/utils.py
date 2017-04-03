@@ -111,7 +111,8 @@ def gens_to_dims(gens):
     Returns:
         (int,int): the grid dimensions of the corresponding grid
     """
-    return (gens, gens * 2 + 1)
+    # return (gens + 1, (gens + 1)* 2)
+    return (gens + 1, (gens * 2 + 1))
 
 
 def load(path):

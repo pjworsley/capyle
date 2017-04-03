@@ -1,6 +1,6 @@
 import numpy as np
 from capyle.ca import Neighbourhood
-from capyle.utils import scale_array
+from capyle.utils import scale_array, verify_gens
 import tkinter as tk
 
 
@@ -59,8 +59,8 @@ class Grid(object):
         Returns:
             numpy.ndarray: contains the grid state for each timestep
         """
-        num_generations = self.ca_config.num_generations
-        timeline = np.empty(num_generations, dtype=np.ndarray)
+        num_generations = verify_gens(self.ca_config.num_generations)
+        timeline = np.empty(num_generations + 1, dtype=np.ndarray)
         # Progress window
         # pass in the run function and timeline to the progress bar
         # progress bar executes these
@@ -76,7 +76,7 @@ class Grid(object):
         """
         # save initial state
         timeline[0] = np.copy(self.grid)
-        for i in range(num_generations - 1):
+        for i in range(num_generations):
             # calculate the next timestep and save it
             self.step()
             timeline[i+1] = np.copy(self.grid)
