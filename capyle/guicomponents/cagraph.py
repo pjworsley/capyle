@@ -5,7 +5,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 from matplotlib import colors
 from matplotlib import pyplot as plt
-
+import numpy as np
 
 class _CAGraph(object):
     # increase for high res displays
@@ -19,6 +19,9 @@ class _CAGraph(object):
             if sequence:
                 self.timeline = data
                 data = self.timeline[0]
+            # black magic this forces it to work with 1D
+            if (data.shape[0] - 1 == ((data.shape[1] -1 )/ 2)):
+                data = np.zeros((5, 10))
             self.fig = plt.Figure(frameon=False)
             self.fig.set_size_inches(self.GRAPH_SIZE)
             ax = self.fig.add_axes([0, 0, 1, 1])
@@ -44,8 +47,8 @@ class _CAGraph(object):
 
     def set_colormap(self, cmap_ls):
         """Set the colormap of the matplotlib graph"""
-        cm = colors.LinearSegmentedColormap.from_list('Custom', cmap_ls,
-                                                      N=len(cmap_ls))
+        cm = colors.LinearSegmentedColormap.from_list(
+            'Custom', cmap_ls, N=len(cmap_ls))
         self.mat.set_cmap(cm)
         self.refresh()
 
