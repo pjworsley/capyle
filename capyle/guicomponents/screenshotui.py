@@ -58,4 +58,8 @@ class _ScreenshotUI(tk.Frame):
     def take(self):
         if self.ca_graph is not None:
             filename = screenshot(self.ca_graph, self.title, self.getdir())
-            self.l_saved.config(text="Saved to: " + filename)
+            if filename is not None:
+                msg = "Saved to: " + filename
+            else:
+                msg = "Error supplied path does not exist."
+            self.l_saved.config(text=msg)

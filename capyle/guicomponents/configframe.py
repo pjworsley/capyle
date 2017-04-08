@@ -113,7 +113,7 @@ class _ConfigFrame(tk.Frame):
         if ca_config.dimensions == 1:
             if ca_config.rule_num < 0 or ca_config.rule_num > 255:
                 s = "Only 0-255 valid, {val} supplied"
-                return "Rule number", s.format(val=config.rule_num)
+                return "Rule number", s.format(val=ca_config.rule_num)
 
         if ca_config.dimensions == 2:
             if ca_config.grid_dims[0] < 3 or ca_config.grid_dims[1] < 3:
@@ -121,8 +121,8 @@ class _ConfigFrame(tk.Frame):
                 return ("Grid dimensions", s.format(d=ca_config.grid_dims))
 
         if ca_config.num_generations < 1:
-            s = "Invalid value {val} supplied"
-            return "Generations", s.format(val=config.num_generations)
+            s = "Invalid generations {val} supplied"
+            return "Generations", s.format(val=ca_config.num_generations)
         return None
 
     def __ask_proceed_cases(self, ca_config):

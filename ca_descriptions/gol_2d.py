@@ -59,7 +59,7 @@ def setup(args):
 def main():
     # Open the config object
     config = setup(sys.argv[1:])
-
+   
     # Create grid object
     grid = Grid2D(config, transition_func)
 

@@ -43,7 +43,7 @@ class TestBasicConfig(unittest.TestCase):
         #values from defaults
         expected_rulenum = 0
         expected_gens = 100
-        expected_dims = (expected_gens, expected_gens*2 + 1)
+        expected_dims = (expected_gens + 1, expected_gens*2 + 1)
         expected_grid = np.zeros(expected_dims)
         expected_nhood = np.array([1,1,1])
         self.assertEqual(ca_config.rule_num, expected_rulenum)
@@ -75,6 +75,7 @@ class TestBasicConfig(unittest.TestCase):
         ca_config.fill_in_defaults()
         #values from defaults
         expected_rulenum = 0
+        # + 1 for generation 0
         expected_gens = 100
         expected_dims = (200, 200)
         expected_grid = np.zeros(expected_dims)
@@ -111,7 +112,8 @@ class TestMinimalConfigComments(unittest.TestCase):
         #values from defaults
         expected_rulenum = 0
         expected_gens = 100
-        expected_dims = (expected_gens, expected_gens*2 + 1)
+        # + 1 for generation 0
+        expected_dims = (expected_gens + 1, expected_gens*2 + 1)
         expected_grid = np.zeros(expected_dims)
         expected_nhood = np.array([1,1,1])
         self.assertEqual(ca_config.rule_num, expected_rulenum)
@@ -133,6 +135,7 @@ class TestMinimalConfigComments(unittest.TestCase):
         self.assertIsInstance(ca_config, CAConfig)
         ca_config.fill_in_defaults()
         #values from defaults
+        # + 1 from the inclusion of generation 0
         expected_gens = 100
         expected_dims = (200, 200)
         expected_grid = np.zeros(expected_dims)
@@ -178,7 +181,7 @@ class TestMinimalConfigVariables(unittest.TestCase):
         #values from defaults
         expected_rulenum = 0
         expected_gens = 100
-        expected_dims = (expected_gens, expected_gens*2 + 1)
+        expected_dims = (expected_gens + 1, expected_gens*2 + 1)
         expected_grid = np.zeros(expected_dims)
         expected_nhood = np.array([1,1,1])
         self.assertEqual(ca_config.rule_num, expected_rulenum)
@@ -251,7 +254,7 @@ class TestGridDimsSetMeta(type):
         #1d 
         #below limit, valid and below current, valid and above current
         gens = [0, 50, 150]
-        expected = [(1,3), (50,101), (150, 301)]
+        expected = [(2,3), (51,101), (151, 301)]
         config = CAConfig(TESTDESCRIPTIONS_PATH + "1dbasic.py")
         config.fill_in_defaults()
         for g, e in zip(gens, expected):

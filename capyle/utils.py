@@ -287,22 +287,25 @@ def screenshot(cagraph, catitle, path=None):
         if not path.endswith("/"):
             path += "/"
         screenshot_folder = path
-
-    extension = ".png"
-    i = 0
-    title = title_to_filename(catitle)
-    titletime = "{}_{}_".format(title, time.strftime("%Y-%m-%d_%H-%M-%S"))
-    filename = titletime + str(i) + extension
-    # if another screenshot was taken in the same second,
-    # increase the numbering until one that is not used
-    while os.path.isfile(screenshot_folder + filename):
-        i += 1
+    # check path exists
+    if os.path.isdir(screenshot_folder):
+        extension = ".png"
+        i = 0
+        title = title_to_filename(catitle)
+        titletime = "{}_{}_".format(title, time.strftime("%Y-%m-%d_%H-%M-%S"))
         filename = titletime + str(i) + extension
-    # save the unique filename
-    filepath = screenshot_folder + filename
-    cagraph.screenshot(filepath)
-    return filename
+        # if another screenshot was taken in the same second,
+        # increase the numbering until one that is not used
+        while os.path.isfile(screenshot_folder + filename):
+            i += 1
+            filename = titletime + str(i) + extension
+        # save the unique filename
+            filepath = screenshot_folder + filename
+            cagraph.screenshot(filepath)
+    else:
+        filename = None
 
+    return filename
 
 def get_logo():
     os = platform.system()

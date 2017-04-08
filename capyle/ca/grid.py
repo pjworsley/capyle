@@ -104,10 +104,12 @@ class _ProgressWindow(object):
         self.root = tk.Tk()
         # set title
         self.root.wm_title(self.WINDOW_TITLE)
-        self.root.lift()
         # lift to top layer
+        self.root.lift()
         self.root.attributes('-topmost', True)
         self.root.after_idle(self.root.attributes, '-topmost', False)
+        #disable close
+        self.root.protocol('WM_DELETE_WINDOW', self.noclose)
 
         self.progress_canvas = tk.Canvas(self.root,
                                          height=self.HEIGHT,
@@ -116,6 +118,9 @@ class _ProgressWindow(object):
                                                     self.HEIGHT, fill="blue")
         self.progress_canvas.pack()
         self.root.after(1, run(maxval, self, timeline))
+
+    def noclose(self):
+        pass
 
     def set(self, val):
         """Set the progress bar to the given generation number
