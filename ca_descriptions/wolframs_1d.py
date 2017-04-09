@@ -48,8 +48,6 @@ def transition_function(grid, neighbourstates, neighbourcounts, rulebool):
         not_left, not_center, not_right = (np.invert(left),
                                            np.invert(center),
                                            np.invert(right))
-        print(rulebool[7] & not_left & not_center & not_right)
-        # print(rulebool[7], not_left , not_center , not_right)
         rule_application = np.array([
             rulebool[0] & left     & center     & right,
             rulebool[1] & left     & center     & not_right,
