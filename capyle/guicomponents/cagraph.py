@@ -1,4 +1,5 @@
 import os
+import sys
 import matplotlib
 matplotlib.use('TkAgg')
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -13,6 +14,19 @@ class _CAGraph(object):
 
     def __init__(self, data, states, sequence=False, placeholder=False):
         """Create a matplotlib graph within a tkinter canvas"""
+        # get grid size from file
+        try:
+            with open(sys.path[0] + "/config.txt", "r") as f:
+                for line in f:
+                    l = line.split("=")
+                    if l[0] == "graph":
+                        size = int(l[1].strip())
+                custom_size = size, size
+        except:
+            custom_size = self.GRAPH_SIZE
+
+        print(custom_size)
+
         if placeholder:
             self.fig = plt.Figure(frameon=False)
         else:
@@ -20,7 +34,7 @@ class _CAGraph(object):
                 self.timeline = data
                 data = self.timeline[0]
             self.fig = plt.Figure(frameon=False)
-            self.fig.set_size_inches(self.GRAPH_SIZE)
+            self.fig.set_size_inches(custom_size)
             ax = self.fig.add_axes([0, 0, 1, 1])
             ax.axis('off')
             self.mat = ax.matshow(data, cmap='gray', interpolation='none',

@@ -103,8 +103,10 @@ class Display(object):
         """Initialise the config UI elements but do not add them to GUI yet"""
         logo_on = False
         with open(sys.path[0] + "/config.txt", "r") as f:
-            logoopt = f.readline()
-            logo_on = logoopt.split("=")[1].strip() == "1"
+            for line in f:
+                l = line.split("=")
+                if l[0] == "logo":
+                    logo_on = l[1].strip() == "1"
         if logo_on:
             logo = get_logo()
             img = tk.Label(self.lframe, image=logo)
