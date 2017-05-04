@@ -70,7 +70,6 @@ class Display(object):
 
     def add_frames(self):
         """Add tk.Frames to the root window
-
         Adds a left and right frame with the right frame divided
         into top and bottom
         """
@@ -102,13 +101,17 @@ class Display(object):
 
     def init_config_ui(self):
         """Initialise the config UI elements but do not add them to GUI yet"""
-        # logo
-        logo = get_logo()
-        img = tk.Label(self.lframe, image=logo)
-        img.image = logo  # must keep handle
-        # Bind an on mouse click function to load the about window
-        img.bind("<Button-1>", lambda x: _AboutWindow())
-        img.pack()
+        logo_on = False
+        with open(sys.path[0] + "/config.txt", "r") as f:
+            logoopt = f.readline()
+            logo_on = logoopt.split("=")[1].strip() == "1"
+        if logo_on:
+            logo = get_logo()
+            img = tk.Label(self.lframe, image=logo)
+            img.image = logo  # must keep handle
+            # Bind an on mouse click function to load the about window
+            img.bind("<Button-1>", lambda x: _AboutWindow())
+            img.pack()
         # title
         title_font = tkFont.Font(self.root, family="Helvetica",
                                  size=20, weight=tkFont.BOLD)

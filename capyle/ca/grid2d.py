@@ -135,14 +135,19 @@ class Grid2D(Grid):
     def count_neighbours(self, neighbour_states):
         """
         Taking the 8 neighbour arrays, return n arrays of how many
-        neighbours of each state a cell has where n is the number of states
+        neighbours of each state each cell are in each state,
+        where n is the number of states
         """
         states = self.ca_config.states
+        # create variable to store the counts for each state
         state_counts = np.zeros(len(states), dtype=np.ndarray)
         for i, state in enumerate(states):
+            # for each state in the CA
             countg = np.zeros(self.grid.shape)
             for g in neighbour_states:
+                # for each neighbour array add the cells in the queried state
                 countg += (g == state) + 0
+            # save the total counts for this state
             state_counts[i] = countg
         return state_counts
 

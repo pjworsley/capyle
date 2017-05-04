@@ -27,7 +27,7 @@ def setup(args):
     # ------------------------------------------------------------------------
 
     # ---- Override the defaults below (these may be changed at anytime) ----
-    config.wrap = False
+    config.wrap = True
     # config.state_colors = [(0,0,0),(1,1,1)]
     # config.num_generations = 100
     # config.grid_dims = (200,200)
@@ -41,28 +41,28 @@ def setup(args):
 
 
 def transition_function(grid, neighbourstates, neighbourcounts, rulebool):
-        left, center, right = neighbourstates
-        left = left == 1
-        center = center == 1
-        right = right == 1
-        not_left, not_center, not_right = (np.invert(left),
-                                           np.invert(center),
-                                           np.invert(right))
-        rule_application = np.array([
-            rulebool[0] & left     & center     & right,
-            rulebool[1] & left     & center     & not_right,
-            rulebool[2] & left     & not_center & right,
-            rulebool[3] & left     & not_center & not_right,
-            rulebool[4] & not_left & center     & right,
-            rulebool[5] & not_left & center     & not_right,
-            rulebool[6] & not_left & not_center & right,
-            rulebool[7] & not_left & not_center & not_right,
-            ])
+    left, center, right = neighbourstates
+    left = left == 1
+    center = center == 1
+    right = right == 1
+    not_left, not_center, not_right = (np.invert(left),
+                                       np.invert(center),
+                                       np.invert(right))
+    rule_application = np.array([
+        rulebool[0] & left     & center     & right,
+        rulebool[1] & left     & center     & not_right,
+        rulebool[2] & left     & not_center & right,
+        rulebool[3] & left     & not_center & not_right,
+        rulebool[4] & not_left & center     & right,
+        rulebool[5] & not_left & center     & not_right,
+        rulebool[6] & not_left & not_center & right,
+        rulebool[7] & not_left & not_center & not_right,
+        ])
 
-        newrow = rule_application[0]
-        for i in range(rule_application.shape[0] - 1):
-            newrow += rule_application[i+1]
-        return newrow
+    newrow = rule_application[0]
+    for i in range(rule_application.shape[0] - 1):
+        newrow += rule_application[i+1]
+    return newrow
 
 
 def main():

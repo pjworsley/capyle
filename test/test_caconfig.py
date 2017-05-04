@@ -31,14 +31,14 @@ class TestBasicConfig(unittest.TestCase):
         prerun_ca(ca_config)
         ca_config = load(ca_config.path)
         self.assertEqual(ca_config.states, (0,1))
-    
+
     def test_1d_fill(self):
         ca_config = CAConfig(self.filepath1d)
         prerun_ca(ca_config)
         ca_config = load(ca_config.path)
         self.assertIsInstance(ca_config, CAConfig)
         #values from file
-    
+
         ca_config.fill_in_defaults()
         #values from defaults
         expected_rulenum = 0
@@ -64,14 +64,14 @@ class TestBasicConfig(unittest.TestCase):
         self.assertEqual(ca_config.title, "Example 2D CA")
         self.assertEqual(ca_config.dimensions, 2)
         self.assertEqual(ca_config.states, (0,1,2))
-    
+
     def test_2d_fill(self):
         ca_config = CAConfig(self.filepath2d)
         prerun_ca(ca_config)
         ca_config = load(ca_config.path)
         self.assertIsInstance(ca_config, CAConfig)
         #values from file
-    
+
         ca_config.fill_in_defaults()
         #values from defaults
         expected_rulenum = 0
@@ -90,7 +90,7 @@ class TestBasicConfig(unittest.TestCase):
 
 class TestMinimalConfigComments(unittest.TestCase):
     """
-    Test where the descriptor comments have been set, 
+    Test where the descriptor comments have been set,
     and no ca_config variables have been set
     """
     def setUp(self):
@@ -104,7 +104,7 @@ class TestMinimalConfigComments(unittest.TestCase):
         self.assertIsInstance(ca_config, CAConfig)
         self.assertEqual(ca_config.title, "Example 1D CA Minimal")
         self.assertEqual(ca_config.dimensions, 1)
-    
+
     def test_minimal_1d_comments_fill(self):
         ca_config = CAConfig(self.filepath1d)
         self.assertIsInstance(ca_config, CAConfig)
@@ -129,7 +129,7 @@ class TestMinimalConfigComments(unittest.TestCase):
         #values from parsing the file
         self.assertEqual(ca_config.title, "Example 2D CA Minimal")
         self.assertEqual(ca_config.dimensions, 2)
-    
+
     def test_minimal_2d_comments_fill(self):
         ca_config = CAConfig(self.filepath2d)
         self.assertIsInstance(ca_config, CAConfig)
@@ -145,11 +145,11 @@ class TestMinimalConfigComments(unittest.TestCase):
         self.assertTrue(np.array_equal(ca_config.initial_grid, expected_grid))
         self.assertTrue(np.array_equal(ca_config.nhood_arr, expected_nhood))
 
-    
+
 
 class TestMinimalConfigVariables(unittest.TestCase):
     """
-    Test where the ca_config variables have been set, 
+    Test where the ca_config variables have been set,
     and no comments have been set
     """
     def setUp(self):
@@ -166,9 +166,9 @@ class TestMinimalConfigVariables(unittest.TestCase):
         self.assertEqual(ca_config.title, "Example 1D CA Minimal")
         self.assertEqual(ca_config.dimensions, 1)
         #pre run to get states
-        
+
         self.assertEqual(ca_config.states, (0,1))
-    
+
     def test_minimal_1d_vars_fill(self):
         ca_config = CAConfig(self.filepath1d)
         prerun_ca(ca_config)
@@ -176,7 +176,7 @@ class TestMinimalConfigVariables(unittest.TestCase):
         self.assertIsInstance(ca_config, CAConfig)
         self.assertEqual(ca_config.states, (0,1))
         #values from file
-    
+
         ca_config.fill_in_defaults()
         #values from defaults
         expected_rulenum = 0
@@ -198,7 +198,7 @@ class TestMinimalConfigVariables(unittest.TestCase):
         self.assertEqual(ca_config.title, "Example 2D CA Minimal")
         self.assertEqual(ca_config.dimensions, 2)
         self.assertEqual(ca_config.states, (0,1,2))
-    
+
     def test_minimal_2d_vars_fill(self):
         ca_config = CAConfig(self.filepath2d)
         prerun_ca(ca_config)
@@ -216,13 +216,13 @@ class TestMinimalConfigVariables(unittest.TestCase):
         self.assertEqual(ca_config.grid_dims, expected_dims)
         self.assertTrue(np.array_equal(ca_config.initial_grid, expected_grid))
         self.assertTrue(np.array_equal(ca_config.nhood_arr, expected_nhood))
-    
+
 
 class TestNoConfig(unittest.TestCase):
     """
     # Test where no config varibles have been explicitly set and there are no title or dimension comments - infer the title and dimensions from contents of file (eg. from classes called)
     # """
-    
+
     def setUp(self):
         x, y = '1dnone.py','2dnone.py'
         self.filepath1d = TESTDESCRIPTIONS_PATH + x
@@ -251,7 +251,7 @@ class TestGridDimsSetMeta(type):
                 self.assertEqual(config.grid_dims, shape)
             return test
 
-        #1d 
+        #1d
         #below limit, valid and below current, valid and above current
         gens = [0, 50, 150]
         expected = [(2,3), (51,101), (151, 301)]
@@ -275,10 +275,8 @@ class TestGridDimsSetMeta(type):
 
 class TestGridDimsSet(unittest.TestCase, metaclass=TestGridDimsSetMeta):
     pass
-    
 
 #SET INITIAL GRID
-
 
 if __name__ == '__main__':
     unittest.main()

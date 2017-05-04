@@ -35,8 +35,9 @@ class _StateColorsUI(tk.Frame, _ConfigUIComponent):
             self.selected_colors = np.array(self.ca_config.state_colors,
                                             dtype=float)
 
+        outerframe = tk.Frame(self)
         for i, state in enumerate(self.states):
-            frame = tk.Frame(self)
+            frame = tk.Frame(outerframe)
             label = tk.Label(frame, text=state)
             self.canvas[i] = tk.Canvas(
                 frame, height=self.CANVASSIZE, width=self.CANVASSIZE,
@@ -47,7 +48,11 @@ class _StateColorsUI(tk.Frame, _ConfigUIComponent):
                 "<Button-1>", lambda e, i=i: self.onclick(e, i))
             label.pack(side=tk.LEFT)
             self.canvas[i].pack(side=tk.RIGHT)
-            frame.pack()
+            frame.pack(side=tk.LEFT)
+            if i % 3 == 2 and not (i == len(self.states) - 1):
+                outerframe.pack()
+                outerframe = tk.Frame(self)
+        outerframe.pack()
 
     def get_value(self):
         return self.selected_colors
@@ -61,7 +66,12 @@ class _StateColorsUI(tk.Frame, _ConfigUIComponent):
         canvas.config(background=color)
 
     def onclick(self, event, i):
-        selected_color = cc.askcolor()
+        # if has colour open on that colour
+        if i < len(self.selected_colors):
+            col = [int(x * 255) for x in self.selected_colors[i]]
+            selected_color = cc.askcolor(tuple(col))
+        else:
+            selected_color = cc.askcolor()
         if selected_color[0] is not None:
             r, g, b = selected_color[0]
             r, g, b = (int(r)/255, int(g)/255, int(b)/255)
