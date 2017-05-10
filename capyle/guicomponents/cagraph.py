@@ -25,8 +25,6 @@ class _CAGraph(object):
         except:
             custom_size = self.GRAPH_SIZE
 
-        print(custom_size)
-
         if placeholder:
             self.fig = plt.Figure(frameon=False)
         else:
