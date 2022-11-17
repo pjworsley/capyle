@@ -45,7 +45,7 @@ class Cell(object):
         Fuel: {self.fuel}  
         """
 
-    def update(self, ignite: bool):
+    def update(self, ignite: bool = False):
 
         # cell is dead if ran out of fuel
         if self.fuel == 0:
@@ -59,7 +59,17 @@ class Cell(object):
         if self.state == State.BURNING:
             self.fuel -= 1
 
+    def is_burning(self) -> bool:
+        return self.state == State.BURNING
 
-x = Type.CHAPARRAL
-print(x.get_fuel())
-print(Cell(Type.CANYON))
+
+if __name__ == "__main__":
+    c = Cell(Type.CANYON)
+    print(c)
+    c.update()
+    print(c)
+    c.update(True)
+    print(c)
+
+    c.update()
+    print(c)
